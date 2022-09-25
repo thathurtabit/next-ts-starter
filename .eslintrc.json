@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "jsx-a11y",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "plugin:jsx-a11y/recommended",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "no-console": 1
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
+      "parser": "@typescript-eslint/parser"
+    }
+  ]
+}
