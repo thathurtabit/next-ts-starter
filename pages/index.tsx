@@ -1,12 +1,16 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import { NextTSAppContext } from "../context/context/context";
+import {
+  NextTSAppStateContext,
+  NextTSAppDispatchContext,
+} from "../context/context/context";
 import { useContext } from "react";
 import * as Actions from "../context/actions/page/page.actions";
 
 const Home: NextPage = () => {
-  const { state, dispatch } = useContext(NextTSAppContext);
+  const { dispatch } = useContext(NextTSAppDispatchContext);
+  const { state } = useContext(NextTSAppStateContext);
   const { hello } = state.page;
 
   return (

@@ -27,7 +27,12 @@ export interface IContextAction {
 // =========================
 // CONTEXT
 
-export interface IAppContext {
-  state: IAppState;
+export interface IAppDispatchContext {
   dispatch: Dispatch<IContextAction>;
 }
+export interface IAppStateContext {
+  state: IAppState;
+}
+
+
+

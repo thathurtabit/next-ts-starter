@@ -1,18 +1,26 @@
 import { createContext, useMemo, useReducer } from "react";
 import { initState } from "../state/initState";
-import { ContextReducer, IAppContext } from "../types/context.types";
+import {
+  ContextReducer,
+  IAppStateContext,
+  IAppDispatchContext,
+} from "../types/context.types";
 import { IAppProvider } from "./context.types";
 import combineReducers from "react-combine-reducers";
 import { pageReducer } from "../reducers/page/page.reducer";
 
 // TODO: Rename me
-export const NextTSAppContext = createContext<IAppContext>({
+export const NextTSAppStateContext = createContext<IAppStateContext>({
   state: initState,
+});
+
+export const NextTSAppDispatchContext = createContext<IAppDispatchContext>({
   dispatch: () => null,
 });
 
 // TODO: Rename me
-NextTSAppContext.displayName = "NextTSAppContext";
+NextTSAppStateContext.displayName = "NextTSAppStateContext";
+NextTSAppDispatchContext.displayName = "NextTSAppDispatchContext";
 
 // TODO: Rename me
 export const NextTSAppProvider = ({ children }: IAppProvider): JSX.Element => {
@@ -25,14 +33,19 @@ export const NextTSAppProvider = ({ children }: IAppProvider): JSX.Element => {
     combinedInitState
   );
 
-  const memoizedContextValue: IAppContext = useMemo<IAppContext>(
-    () => ({ state, dispatch }),
-    [state, dispatch]
+  const memoizedStateContextValue: IAppStateContext = useMemo<IAppStateContext>(
+    () => ({ state }),
+    [state]
   );
 
+  const memoizedDispatchContextValue: IAppDispatchContext =
+    useMemo<IAppDispatchContext>(() => ({ dispatch }), [dispatch]);
+
   return (
-    <NextTSAppContext.Provider value={memoizedContextValue}>
-      {children}
-    </NextTSAppContext.Provider>
+    <NextTSAppDispatchContext.Provider value={memoizedDispatchContextValue}>
+      <NextTSAppStateContext.Provider value={memoizedStateContextValue}>
+        {children}
+      </NextTSAppStateContext.Provider>
+    </NextTSAppDispatchContext.Provider>
   );
 };
